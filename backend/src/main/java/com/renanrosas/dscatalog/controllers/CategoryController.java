@@ -1,6 +1,7 @@
 package com.renanrosas.dscatalog.controllers;
 
 import com.renanrosas.dscatalog.dto.CategoryDTO;
+import com.renanrosas.dscatalog.entities.Category;
 import com.renanrosas.dscatalog.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,7 @@ public class CategoryController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
+        Category cat = new Category();
         return ResponseEntity.noContent().build();
     }
 }
