@@ -1,6 +1,6 @@
 package com.renanrosas.dscatalog.controllers;
 
-import com.renanrosas.dscatalog.entities.Category;
+import com.renanrosas.dscatalog.dto.CategoryDTO;
 import com.renanrosas.dscatalog.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +19,8 @@ public class CategoryController {
     private final CategoryService service;
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAll(){
-        List<Category> list = service.findAll();
+    public ResponseEntity<List<CategoryDTO>> findAll(){
+        List<CategoryDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 }
