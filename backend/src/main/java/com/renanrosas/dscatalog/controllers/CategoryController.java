@@ -2,6 +2,7 @@ package com.renanrosas.dscatalog.controllers;
 
 import com.renanrosas.dscatalog.dto.CategoryDTO;
 import com.renanrosas.dscatalog.entities.Category;
+import com.renanrosas.dscatalog.entities.Product;
 import com.renanrosas.dscatalog.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
