@@ -1,8 +1,8 @@
 package com.renanrosas.dscatalog.controllers;
 
-import com.renanrosas.dscatalog.dto.CategoryDTO;
-import com.renanrosas.dscatalog.entities.Category;
-import com.renanrosas.dscatalog.services.CategoryService;
+import com.renanrosas.dscatalog.dto.ProductDTO;
+import com.renanrosas.dscatalog.entities.Product;
+import com.renanrosas.dscatalog.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,14 +14,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/products")
 @AllArgsConstructor
-public class CategoryController {
+public class ProductController {
 
-    private final CategoryService service;
+    private final ProductService service;
 
     @GetMapping
-    public ResponseEntity<Page<CategoryDTO>> findAll(
+    public ResponseEntity<Page<ProductDTO>> findAll(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
             @RequestParam(value = "direction", defaultValue = "DESC") String direction,
@@ -30,18 +30,18 @@ public class CategoryController {
 
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
 
-        Page<CategoryDTO> list = service.findAllPaged(pageRequest);
+        Page<ProductDTO> list = service.findAllPaged(pageRequest);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
-        CategoryDTO dto = service.findById(id);
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
+        ProductDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto){
+    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto){
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -49,7 +49,7 @@ public class CategoryController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto){
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto){
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
@@ -57,7 +57,7 @@ public class CategoryController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
-        Category cat = new Category();
+        Product cat = new Product();
         return ResponseEntity.noContent().build();
     }
 }
