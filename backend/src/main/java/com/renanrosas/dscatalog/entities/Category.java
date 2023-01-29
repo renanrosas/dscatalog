@@ -9,12 +9,15 @@ import java.time.Instant;
 @Table(name = "tb_category")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Category {
 
+    @NonNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NonNull
     private String name;
 
     @Setter(AccessLevel.NONE)
