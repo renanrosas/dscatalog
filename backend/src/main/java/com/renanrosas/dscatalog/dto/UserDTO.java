@@ -1,8 +1,8 @@
 package com.renanrosas.dscatalog.dto;
 
 import com.renanrosas.dscatalog.entities.User;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.HashSet;
@@ -20,6 +20,7 @@ public class UserDTO {
     @NotBlank
     private String lastName;
     @NotBlank
+    @Email
     private String email;
 
     @Setter(AccessLevel.NONE)
