@@ -2,6 +2,7 @@ package com.renanrosas.dscatalog.controllers;
 
 import com.renanrosas.dscatalog.dto.UserDTO;
 import com.renanrosas.dscatalog.dto.UserInsertDTO;
+import com.renanrosas.dscatalog.dto.UserUpdateDTO;
 import com.renanrosas.dscatalog.entities.User;
 import com.renanrosas.dscatalog.services.UserService;
 import jakarta.validation.Valid;
@@ -42,9 +43,9 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id, @RequestBody UserDTO dto){
-        dto = service.update(id, dto);
-        return ResponseEntity.ok().body(dto);
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto){
+        UserDTO newDto = service.update(id, dto);
+        return ResponseEntity.ok().body(newDto);
     }
 
     @DeleteMapping(value = "/{id}")
