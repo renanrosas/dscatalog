@@ -11,5 +11,4 @@ public class UserInsertDTO extends UserDTO{
 
     private String password;
 
-
 }

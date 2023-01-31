@@ -2,6 +2,9 @@ package com.renanrosas.dscatalog.dto;
 
 import com.renanrosas.dscatalog.entities.Category;
 import com.renanrosas.dscatalog.entities.Product;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.time.Instant;
@@ -17,19 +20,19 @@ public class ProductDTO {
     @NonNull
     private Long id;
 
-    @NonNull
+    @NotBlank
     private String name;
 
-    @NonNull
+    @NotBlank
     private String description;
 
-    @NonNull
+    @Positive
     private Double price;
 
     @NonNull
     private String imgUrl;
 
-    @NonNull
+    @PastOrPresent
     private Instant date;
 
     @Setter(AccessLevel.NONE)
