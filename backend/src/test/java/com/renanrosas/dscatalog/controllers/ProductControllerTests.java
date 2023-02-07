@@ -75,7 +75,7 @@ public class ProductControllerTests {
     }
 
     @Test
-    public void findByIdShouldReturnProductDTOWhenIdExits() throws Exception{
+    public void findByIdShouldReturnProductDTOWhenIdExists() throws Exception{
         mockMvc.perform(get("/products/{id}", existingId)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

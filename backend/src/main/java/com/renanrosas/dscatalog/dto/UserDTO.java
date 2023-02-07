@@ -23,8 +23,11 @@ public class UserDTO {
     @Email
     private String email;
 
+    @NotBlank
+    private String password;
+
     @Setter(AccessLevel.NONE)
-    private Set<RoleDTO> roles = new HashSet<>();
+    Set<RoleDTO> roles = new HashSet<>();
 
     public UserDTO(User entity){
         id = entity.getId();

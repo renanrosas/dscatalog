@@ -2,8 +2,6 @@ package com.renanrosas.dscatalog.services;
 
 import com.renanrosas.dscatalog.dto.RoleDTO;
 import com.renanrosas.dscatalog.dto.UserDTO;
-import com.renanrosas.dscatalog.dto.UserInsertDTO;
-import com.renanrosas.dscatalog.dto.UserUpdateDTO;
 import com.renanrosas.dscatalog.entities.Role;
 import com.renanrosas.dscatalog.entities.User;
 import com.renanrosas.dscatalog.repositories.RoleRepository;
@@ -12,10 +10,15 @@ import com.renanrosas.dscatalog.services.exceptions.DatabaseException;
 import com.renanrosas.dscatalog.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +27,9 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
+
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -46,7 +51,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO insert(UserInsertDTO dto) {
+    public UserDTO insert(UserDTO dto) {
         User entity = new User();
         copyDtoToEntity(dto, entity);
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -55,7 +60,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserUpdateDTO dto) {
+    public UserDTO update(Long id, UserDTO dto) {
         try {
             User entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
@@ -89,5 +94,10 @@ public class UserService {
             Role role = roleRepository.getReferenceById(roleDto.getId());
             entity.getRoles().add(role);
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }
