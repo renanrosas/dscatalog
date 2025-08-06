@@ -3,12 +3,14 @@ package com.renanrosas.dscatalog.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.renanrosas.dscatalog.dto.CategoryDTO;
 import com.renanrosas.dscatalog.entities.Category;
 import com.renanrosas.dscatalog.repositories.CategoryRepository;
+import com.renanrosas.dscatalog.services.exceptions.DatabaseException;
 import com.renanrosas.dscatalog.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -56,5 +58,17 @@ public class CategoryService {
     } catch (EntityNotFoundException e) {
       throw new ResourceNotFoundException("Id not found " + id);
     }
+  }
+
+  public void delete(Long id) {
+    if (!categoryRepository.existsById(id)) {
+      throw new ResourceNotFoundException("Recurso não encontrado");
+    }
+    try {
+            categoryRepository.deleteById(id);    		
+    }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
+      }
   }
 }
