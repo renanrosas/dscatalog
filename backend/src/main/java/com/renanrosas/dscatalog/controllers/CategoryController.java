@@ -36,6 +36,7 @@ public class CategoryController {
     @RequestParam(value = "orderBy", defaultValue = "ASC") String orderBy,
     @RequestParam(value = "direction", defaultValue = "name") String direction
     ) {
+    // This method will return all categories with pagination;
     PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(orderBy), direction);
     Page<CategoryDTO> list = categoryService.findAllPaged(pageRequest);
     return ResponseEntity.ok().body(list);
