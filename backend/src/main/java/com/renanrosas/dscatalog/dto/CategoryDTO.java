@@ -38,4 +38,11 @@ public class CategoryDTO implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Category toEntity() {
+        Category category = new Category();
+        category.setId(this.id);
+        category.setName(this.name);
+        return category;
+    }
 }
